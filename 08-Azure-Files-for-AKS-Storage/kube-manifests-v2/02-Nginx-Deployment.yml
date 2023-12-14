@@ -25,6 +25,10 @@ spec:
               mountPath: "/usr/share/nginx/html/app1"
       volumes:
         - name: my-azurefile-volume
-          persistentVolumeClaim:
-            claimName: my-azurefile-pvc              
+          csi: 
+            driver: file.csi.azure.com
+            volumeAttributes:
+              secretName: azure-secret  # required
+              shareName: dev  # required
+              mountOptions: 'dir_mode=0777,file_mode=0777,cache=strict,actimeo=30,nosharesock'  # optional            
 
